@@ -145,4 +145,4 @@ void KListener_KeyDown(object sender, RawKeyEventArgs args)
 <br>
 
 ## Sponsorship and Support
-<a href="https://www.google.com/" title="https://www.google.com/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/1200px-PayPal.svg.png " width="100" height="30" align="middle" /></a>
+<a href="https://paypal.me/BaLaG867?country.x=TW&locale.x=zh_TW" https://paypal.me/BaLaG867?country.x=TW&locale.x=zh_TW"><img src="https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%871.png " width="100" height="30" align="middle" /></a>
