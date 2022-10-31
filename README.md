@@ -1,5 +1,5 @@
 # C# CPU and GPU temperature
-[![star](https://img.shields.io/github/stars/AlanWu867/temperature-gadget)](https://www.npmjs.com/package/bootstrap)
+[![star](https://img.shields.io/github/stars/AlanWu867/temperature-gadget)](https://github.com/login?return_to=%2FAlanWu867%2Ftemperature-gadget)
 ## 環形進度條
 ![temperature](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%871.png)
 ### XAML 
