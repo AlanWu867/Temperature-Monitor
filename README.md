@@ -145,5 +145,5 @@ void KListener_KeyDown(object sender, RawKeyEventArgs args)
 <br>
 
 ## Sponsorship and Support
-[![paypal](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%872.png)]([https://www.npmjs.com/package/bootstrap](https://paypal.me/BaLaG867?country.x=TW&locale.x=zh_TW))
+[![paypal](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%872.png)](https://paypal.me/BaLaG867?country.x=TW&locale.x=zh_TW)
 <a href="https://paypal.me/BaLaG867?country.x=TW&locale.x=zh_TW" https://paypal.me/BaLaG867?country.x=TW&locale.x=zh_TW"><img src="https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%872.png " width="100" height="30" align="middle" /></a>
