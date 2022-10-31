@@ -1,6 +1,9 @@
 # C# temperature-gadget
 [![star](https://img.shields.io/github/stars/AlanWu867/temperature-gadget)](https://github.com/login?return_to=%2FAlanWu867%2Ftemperature-gadget)
 ![C#](https://img.shields.io/badge/C%23-XAML-green)
+## Introduction
+Imitate some functions of xbox game bar
+## Demo
 ![temperature-gadget](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%AA%92%E9%AB%941.gif)
 ## 環形進度條
 ![temperature](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%871.png)
@@ -95,7 +98,7 @@ source --> [HardwareTemperature](https://github.com/crazymi/HardwareTemperature/
 
         }
 ```
-## 快捷鍵(ctrl+Q)
+## keyboard shortcut(ctrl+Q)
 For more details, please refer to the link --> [Keyboard listener](https://gist.github.com/Ciantic/471698)
 ``` C#
 void KListener_KeyDown(object sender, RawKeyEventArgs args)
