@@ -1,6 +1,7 @@
-# C# CPU and GPU temperature
+# C# temperature-gadget
 [![star](https://img.shields.io/github/stars/AlanWu867/temperature-gadget)](https://github.com/login?return_to=%2FAlanWu867%2Ftemperature-gadget)
 ![C#](https://img.shields.io/badge/C%23-XAML-green)
+![temperature-gadget](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%AA%92%E9%AB%941.gif)
 ## 環形進度條
 ![temperature](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%871.png)
 ### XAML 
