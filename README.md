@@ -1,7 +1,7 @@
 # C# CPU and GPU temperature
 [![npm version](https://img.shields.io/npm/v/bootstrap)](https://www.npmjs.com/package/bootstrap)
 ## 環形進度條
-![temperature](E:\完整\圖片1.png)
+![temperature](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%871.png)
 ### XAML 
 ```C#
         <ed:Arc x:Name="circle_value" ArcThickness="12"
