@@ -4,7 +4,7 @@
 ## Introduction
 Imitate some functions of xbox game bar
 ## Demo
-![temperature-gadget](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%AA%92%E9%AB%941.gif)
+![temperature-gadget](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%AA%92%E9%AB%942.gif)
 ## 環形進度條
 ![temperature](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%9C%96%E7%89%871.png)
 ### XAML 
