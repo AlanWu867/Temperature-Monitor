@@ -1,0 +1,1261 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>H.NotifyIcon.Wpf</name>
+    </assembly>
+    <members>
+        <member name="T:H.NotifyIcon.TaskbarIcon">
+            <summary>
+            A proxy to for a taskbar icon (NotifyIcon) that sits in the system's
+            taskbar notification area ("system tray").
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnKeyboardEvent(System.Object,H.NotifyIcon.KeyboardTrayIconEventArgs)">
+            <summary>
+            Processes keyboard events, which are bubbled
+            through the class' routed events, trigger
+            certain actions (e.g. show a popup), or
+            both.
+            </summary>
+            <param name="sender"></param>
+            <param name="args">Keyboard event args</param>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.balloonCloseTimer">
+            <summary>
+            A timer that is used to close open balloon tooltips.
+            </summary>
+        </member>
+        <member name="T:H.NotifyIcon.TaskbarIcon.GetCustomPopupPosition">
+            <summary>
+            A delegate to handle customer popup positions.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.CustomPopupPosition">
+            <summary>
+            Specify a custom popup position
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.GetPopupTrayPosition">
+            <summary>
+            Returns the location of the system tray
+            </summary>
+            <returns>Point</returns>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ShowCustomBalloon(System.Windows.UIElement,System.Windows.Controls.Primitives.PopupAnimation,System.Nullable{System.Int32})">
+            <summary>
+            Shows a custom control as a tooltip in the tray location.
+            </summary>
+            <param name="balloon"></param>
+            <param name="animation">An optional animation for the popup.</param>
+            <param name="timeout">The time after which the popup is being closed.
+            Submit null in order to keep the balloon open indefinitely
+            </param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="balloon"/>
+            is a null reference.</exception>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ResetBalloonCloseTimer">
+            <summary>
+            Resets the closing timeout, which effectively
+            keeps a displayed balloon message open until
+            it is either closed programmatically through
+            <see cref="M:H.NotifyIcon.TaskbarIcon.CloseBalloon"/> or due to a new
+            message being displayed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.CloseBalloon">
+            <summary>
+            Closes the current <see cref="P:H.NotifyIcon.TaskbarIcon.CustomBalloon"/>, if the
+            property is set.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.CloseBalloonCallback(System.Object)">
+            <summary>
+            Timer-invoke event which closes the currently open balloon and
+            resets the <see cref="P:H.NotifyIcon.TaskbarIcon.CustomBalloon"/> dependency property.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.CreatePopup">
+            <summary>
+            Creates a <see cref="T:System.Windows.Controls.ToolTip"/> control that either
+            wraps the currently set <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTip"/>
+            control or the <see cref="P:H.NotifyIcon.TaskbarIcon.ToolTipText"/> string.<br/>
+            If <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTip"/> itself is already
+            a <see cref="T:System.Windows.Controls.ToolTip"/> instance, it will be used directly.
+            </summary>
+            <remarks>We use a <see cref="T:System.Windows.Controls.ToolTip"/> rather than
+            <see cref="T:System.Windows.Controls.Primitives.Popup"/> because there was no way to prevent a
+            popup from causing cyclic open/close commands if it was
+            placed under the mouse. ToolTip internally uses a Popup of
+            its own, but takes advance of Popup's internal <see cref="P:System.Windows.UIElement.IsHitTestVisible"/>
+            property which prevents this issue.</remarks>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.CloseTrayPopup">
+            <summary>
+            Hide the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayPopup"/> control if it was visible.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ShowTrayPopup(System.Drawing.Point)">
+            <summary>
+            Displays the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayPopup"/> control if it was set.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.SupportsCustomToolTips">
+            <summary>
+            Indicates whether custom tooltips are supported, which depends
+            on the OS. Windows Vista or higher is required in order to
+            support this feature.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.IsPopupOpen">
+            <summary>
+            Checks whether a non-tooltip popup is currently opened.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.CreateCustomToolTip">
+            <summary>
+            Creates a <see cref="T:System.Windows.Controls.ToolTip"/> control that either
+            wraps the currently set <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTip"/>
+            control or the <see cref="P:H.NotifyIcon.TaskbarIcon.ToolTipText"/> string.<br/>
+            If <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTip"/> itself is already
+            a <see cref="T:System.Windows.Controls.ToolTip"/> instance, it will be used directly.
+            </summary>
+            <remarks>We use a <see cref="T:System.Windows.Controls.ToolTip"/> rather than
+            <see cref="T:System.Windows.Controls.Primitives.Popup"/> because there was no way to prevent a
+            popup from causing cyclic open/close commands if it was
+            placed under the mouse. ToolTip internally uses a Popup of
+            its own, but takes advance of Popup's internal <see cref="P:System.Windows.UIElement.IsHitTestVisible"/>
+            property which prevents this issue.</remarks>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.WriteToolTipSettings">
+            <summary>
+            Sets tooltip settings for the class depending on defined
+            dependency properties and OS support.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnToolTipChange(System.Object,System.Boolean)">
+            <summary>
+            Displays a custom tooltip, if available. This method is only
+            invoked for Windows Vista and above.
+            </summary>
+            <param name="sender"></param>
+            <param name="visible">Whether to show or hide the tooltip.</param>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ShowNotification(System.String,System.String,H.NotifyIcon.Core.NotificationIcon,System.Drawing.Icon,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Nullable{System.TimeSpan})">
+            <summary>
+            Displays a balloon notification with the specified title,
+            text, and predefined icon or custom icon in the taskbar for the specified time period.
+            </summary>
+            <param name="title">The title to display on the balloon tip.</param>
+            <param name="message">The text to display on the balloon tip.</param>
+            <param name="icon">A symbol that indicates the severity.</param>
+            <param name="customIcon">A custom icon.</param>
+            <param name="largeIcon">True to allow large icons (Windows Vista and later).</param>
+            <param name="sound">If false do not play the associated sound.</param>
+            <param name="respectQuietTime">
+            Do not display the balloon notification if the current user is in "quiet time", 
+            which is the first hour after a new user logs into his or her account for the first time. 
+            During this time, most notifications should not be sent or shown. 
+            This lets a user become accustomed to a new computer system without those distractions. 
+            Quiet time also occurs for each user after an operating system upgrade or clean installation. 
+            A notification sent with this flag during quiet time is not queued; 
+            it is simply dismissed unshown. The application can resend the notification later 
+            if it is still valid at that time. <br/>
+            Because an application cannot predict when it might encounter quiet time, 
+            we recommended that this flag always be set on all appropriate notifications 
+            by any application that means to honor quiet time. <br/>
+            During quiet time, certain notifications should still be sent because 
+            they are expected by the user as feedback in response to a user action, 
+            for instance when he or she plugs in a USB device or prints a document.<br/>
+            If the current user is not in quiet time, this flag has no effect.
+            </param>
+            <param name="realtime">
+            Windows Vista and later. <br/>
+            If the balloon notification cannot be displayed immediately, discard it. 
+            Use this flag for notifications that represent real-time information 
+            which would be meaningless or misleading if displayed at a later time.  <br/>
+            For example, a message that states "Your telephone is ringing."
+            </param>
+            <param name="timeout">
+            This member is deprecated as of Windows Vista. <br/>
+            Notification display times are now based on system accessibility settings. <br/>
+            The system enforces minimum and maximum timeout values.  <br/>
+            Values specified in uTimeout that are too large are set to the maximum value. <br/>
+            Values that are too small default to the minimum value. <br/>
+            The system minimum and maximum timeout values are currently set at 10 seconds and 30 seconds, respectively.
+            </param>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ClearNotifications">
+            <summary>
+            Clears all notifications(active and deffered) by recreating tray icon.
+            https://docs.microsoft.com/en-us/windows/win32/api/shellapi/ns-shellapi-notifyicondataa#nif_info-0x00000010
+            There's a way to remove notifications without recreating here,
+            but I haven't been able to get it to work.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnBalloonToolTipChanged(System.Object,System.Boolean)">
+            <summary>
+            Bubbles events if a balloon ToolTip was displayed
+            or removed.
+            </summary>
+            <param name="visible">Whether the ToolTip was just displayed
+            or removed.</param>
+            <param name="sender"></param>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ShowContextMenu(System.Drawing.Point)">
+            <summary>
+            Displays the ContextMenu/ContextFlyout if it was set.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.SingleClickTimerAction">
+            <summary>
+            An action that is being invoked if the
+            <see cref="P:H.NotifyIcon.TaskbarIcon.SingleClickTimer"/> fires.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.SingleClickTimer">
+            <summary>
+            A timer that is used to differentiate between single
+            and double clicks.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.DoubleClickWaitTime">
+            <summary>
+            The time we should wait for a double click.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnMouseEvent(System.Object,H.NotifyIcon.MouseTrayIconEventArgs)">
+            <summary>
+            Processes mouse events, which are bubbled
+            through the class' routed events, trigger
+            certain actions (e.g. show a popup), or
+            both.
+            </summary>
+            <param name="sender"></param>
+            <param name="args">Mouse event args.</param>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.DoSingleClickAction(System.Object)">
+            <summary>
+            Performs a delayed action if the user requested an action
+            based on a single click of the left mouse.<br/>
+            This method is invoked by the <see cref="P:H.NotifyIcon.TaskbarIcon.SingleClickTimer"/>.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.TrayIcon">
+            <summary>
+            Represents the current icon data.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.IsCreated">
+            <summary>
+            Indicates whether the taskbar icon has been created or not.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.#ctor">
+            <summary>
+            Initializes the taskbar icon and registers a message listener
+            in order to receive events from the taskbar area.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTaskbarCreated(System.Object,System.EventArgs)">
+            <summary>
+            Recreates the taskbar icon if the whole taskbar was
+            recreated (e.g. because Explorer was shut down).
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.ForceCreate(System.Boolean)">
+            <summary>
+            Use it to force create icon if it placed in resources. <br/>
+            This also turns on Efficiency Mode by default, meaning you run the app in a hidden state.
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.IsDisposed">
+            <summary>
+            Set to true as soon as <c>Dispose</c> has been invoked.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.EnsureNotDisposed">
+            <summary>
+            Checks if the object has been disposed and
+            raises a <see cref="T:System.ObjectDisposedException"/> in case
+            the <see cref="P:H.NotifyIcon.TaskbarIcon.IsDisposed"/> flag is true.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnExit(System.Object,System.EventArgs)">
+            <summary>
+            Disposes the class if the application exits.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.Finalize">
+            <summary>
+            This destructor will run only if the <see cref="M:H.NotifyIcon.TaskbarIcon.Dispose"/>
+            method does not get called. This gives this base class the
+            opportunity to finalize.
+            <para>
+            Important: Do not provide destructor in types derived from this class.
+            </para>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.Dispose">
+            <summary>
+            Disposes the object.
+            </summary>
+            <remarks>This method is not virtual by design. Derived classes
+            should override <see cref="M:H.NotifyIcon.TaskbarIcon.Dispose(System.Boolean)"/>.
+            </remarks>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.Dispose(System.Boolean)">
+            <summary>
+            Closes the tray and releases all resources.
+            </summary>
+            <summary>
+            <c>Dispose(bool disposing)</c> executes in two distinct scenarios.
+            If disposing equals <c>true</c>, the method has been called directly
+            or indirectly by a user's code. Managed and unmanaged resources
+            can be disposed.
+            </summary>
+            <param name="disposing">If disposing equals <c>false</c>, the method
+            has been called by the runtime from inside the finalizer and you
+            should not reference other objects. Only unmanaged resources can
+            be disposed.</param>
+            <remarks>Check the <see cref="P:H.NotifyIcon.TaskbarIcon.IsDisposed"/> property to determine whether
+            the method has already been called.</remarks>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.CategoryName">
+            <summary>
+            Category name that is set on designer properties.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.UpdateIcon(System.Drawing.Icon)">
+            <summary>
+            Updates TrayIcon.Icon without changing Icon property.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.UpdateDataContext(System.Windows.FrameworkElement,System.Object)">
+            <summary>
+            Updates the DataContextProperty of a given
+            <see cref="T:System.Windows.FrameworkElement"/>. This method only updates target elements
+            that do not already have a data context of their own, and either assigns
+            the DataContext of the NotifyIcon, or the
+            NotifyIcon itself, if no data context was assigned at all.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.GeneratedIconProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.GeneratedIcon"/> dependency property.<br/>
+            Default value: default(GeneratedIcon)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.GeneratedIcon">
+            <summary>
+            Defines generated icon.<br/>
+            Default value: default(GeneratedIcon)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.CustomBalloonPropertyKey">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.CustomBalloon"/> dependency property.<br/>
+            Default value: default(Popup)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.CustomBalloonProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.CustomBalloon"/> dependency property.<br/>
+            Default value: default(Popup)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.CustomBalloon">
+            <summary>
+            Maintains a currently displayed custom balloon.<br/>
+            Default value: default(Popup)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PopupActivationProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.PopupActivation"/> dependency property.<br/>
+            Default value: LeftClick
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.PopupActivation">
+            <summary>
+            Defines what mouse events display the TaskbarIconPopup.<br/>
+            Default value: LeftClick
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayPopupProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayPopup"/> dependency property.<br/>
+            Default value: default(UIElement)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.TrayPopup">
+            <summary>
+            Displayed as a Popup if the user clicks on the taskbar icon.<br/>
+            Default value: default(UIElement)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayPopupResolvedPropertyKey">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayPopupResolved"/> dependency property.<br/>
+            Default value: default(Popup)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayPopupResolvedProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayPopupResolved"/> dependency property.<br/>
+            Default value: default(Popup)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.TrayPopupResolved">
+            <summary>
+            Returns a Popup which is either the TrayPopup control itself or a Popup control that contains the TrayPopup.<br/>
+            Default value: default(Popup)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PopupPlacementProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.PopupPlacement"/> dependency property.<br/>
+            Default value: default(PlacementMode)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.PopupPlacement">
+            <summary>
+            Defines popup placement mode of TaskbarIconPopup.<br/>
+            Default value: default(PlacementMode)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PopupOffsetProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.PopupOffset"/> dependency property.<br/>
+            Default value: default(Thickness)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.PopupOffset">
+            <summary>
+            Defines popup offset of TaskbarIconPopup.<br/>
+            Default value: default(Thickness)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.ToolTipTextProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.ToolTipText"/> dependency property.<br/>
+            Default value: ""
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.ToolTipText">
+            <summary>
+            A tooltip text that is being displayed if no custom ToolTip was set or if custom tooltips are not supported.<br/>
+            Default value: ""
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayToolTipProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTip"/> dependency property.<br/>
+            Default value: default(UIElement)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.TrayToolTip">
+            <summary>
+            A custom UI element that is displayed as a tooltip if the user hovers over the taskbar icon. Works only with Vista and above. Accordingly, you should make sure that the ToolTipText property is set as well.<br/>
+            Default value: default(UIElement)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayToolTipResolvedPropertyKey">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTipResolved"/> dependency property.<br/>
+            Default value: default(ToolTip)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayToolTipResolvedProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.TrayToolTipResolved"/> dependency property.<br/>
+            Default value: default(ToolTip)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.TrayToolTipResolved">
+            <summary>
+            Returns a ToolTip control that was created in order to display either TrayToolTip or ToolTipText<br/>
+            Default value: default(ToolTip)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.MenuActivationProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.MenuActivation"/> dependency property.<br/>
+            Default value: RightClick
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.MenuActivation">
+            <summary>
+            Defines what mouse events display the context menu.<br/>
+            Default value: RightClick
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.DoubleClickCommandProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.DoubleClickCommand"/> dependency property.<br/>
+            Default value: default(ICommand)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.DoubleClickCommand">
+            <summary>
+            A command that is being executed if the tray icon is being double-clicked.<br/>
+            Default value: default(ICommand)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.DoubleClickCommandParameterProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.DoubleClickCommandParameter"/> dependency property.<br/>
+            Default value: default(object)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.DoubleClickCommandParameter">
+            <summary>
+            Parameter to submit to the DoubleClickCommand when the user double clicks on the NotifyIcon.<br/>
+            Default value: default(object)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.LeftClickCommandProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.LeftClickCommand"/> dependency property.<br/>
+            Default value: default(ICommand)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.LeftClickCommand">
+            <summary>
+            A command that is being executed if the tray icon is being left-clicked.<br/>
+            Default value: default(ICommand)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.LeftClickCommandParameterProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.LeftClickCommandParameter"/> dependency property.<br/>
+            Default value: default(object)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.LeftClickCommandParameter">
+            <summary>
+            The target of the command that is fired if the notify icon is clicked with the left mouse button.<br/>
+            Default value: default(object)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.NoLeftClickDelayProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.NoLeftClickDelay"/> dependency property.<br/>
+            Default value: default(bool)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.NoLeftClickDelay">
+            <summary>
+            Set to true to make left clicks work without delay.<br/>
+            Default value: default(bool)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.DoubleClickCommandTargetProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.DoubleClickCommandTarget"/> dependency property.<br/>
+            Default value: default(IInputElement)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.DoubleClickCommandTarget">
+            <summary>
+            The target of the command that is fired if the notify icon is double clicked.<br/>
+            Default value: default(IInputElement)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.LeftClickCommandTargetProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.LeftClickCommandTarget"/> dependency property.<br/>
+            Default value: default(IInputElement)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.LeftClickCommandTarget">
+            <summary>
+            The target of the command that is fired if the notify icon is clicked with the left mouse button.<br/>
+            Default value: default(IInputElement)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.IdProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.Id"/> dependency property.<br/>
+            Default value: default(Guid)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.Id">
+            <summary>
+            Gets or sets the TrayIcon Id. Use this for second TrayIcon in same app.<br/>
+            Default value: default(Guid)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.CustomNameProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.CustomName"/> dependency property.<br/>
+            Default value: default(string)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.CustomName">
+            <summary>
+            Gets or sets the TrayIcon Name. Use this for second TrayIcon in same app.<br/>
+            Default value: default(string)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.IconProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.Icon"/> dependency property.<br/>
+            Default value: default(Icon)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.Icon">
+            <summary>
+            Gets or sets the icon to be displayed. Use this for dynamically generated System.Drawing.Icons.<br/>
+            Default value: default(Icon)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.IconSourceProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.TaskbarIcon.IconSource"/> dependency property.<br/>
+            Default value: default(ImageSource)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.TaskbarIcon.IconSource">
+            <summary>
+            Resolves an image source and updates the Icon property accordingly.<br/>
+            Default value: default(ImageSource)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.ParentTaskbarIconProperty">
+            <summary>
+            An attached property that is assigned to displayed UI elements (balloons, tooltips, context menus), and
+            that can be used to bind to this control. The attached property is being derived, so binding is
+            quite straightforward:
+            <code>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource Self}, Path=(tb:TaskbarIcon.ParentTaskbarIcon).ToolTipText}" />
+            </code>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.SetParentTaskbarIcon(System.Windows.DependencyObject,H.NotifyIcon.TaskbarIcon)">
+            <summary>
+            Default value: default(TaskbarIcon)
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.GetParentTaskbarIcon(System.Windows.DependencyObject)">
+            <summary>
+            Default value: default(TaskbarIcon)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayKeyboardContextMenuEvent">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayKeyboardContextMenu">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayKeyboardContextMenu">
+            <summary>
+            A helper method to raise the TrayKeyboardContextMenu event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayKeyboardKeySelectEvent">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayKeyboardKeySelect">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayKeyboardKeySelect">
+            <summary>
+            A helper method to raise the TrayKeyboardKeySelect event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayKeyboardSelectEvent">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayKeyboardSelect">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayKeyboardSelect">
+            <summary>
+            A helper method to raise the TrayKeyboardSelect event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayPopupOpenEvent">
+            <summary>
+            Bubbled event that occurs when the custom popup is being opened.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayPopupOpen">
+            <summary>
+            Bubbled event that occurs when the custom popup is being opened.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayPopupOpen">
+            <summary>
+            A helper method to raise the TrayPopupOpen event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PreviewTrayPopupOpenEvent">
+            <summary>
+            Tunneled event that occurs when the custom popup is being opened.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.PreviewTrayPopupOpen">
+            <summary>
+            Tunneled event that occurs when the custom popup is being opened.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnPreviewTrayPopupOpen">
+            <summary>
+            A helper method to raise the PreviewTrayPopupOpen event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayToolTipOpenEvent">
+            <summary>
+            Bubbled event that occurs when the custom ToolTip is being displayed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayToolTipOpen">
+            <summary>
+            Bubbled event that occurs when the custom ToolTip is being displayed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayToolTipOpen">
+            <summary>
+            A helper method to raise the TrayToolTipOpen event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PreviewTrayToolTipOpenEvent">
+            <summary>
+            Tunneled event that occurs when the custom ToolTip is being displayed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.PreviewTrayToolTipOpen">
+            <summary>
+            Tunneled event that occurs when the custom ToolTip is being displayed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnPreviewTrayToolTipOpen">
+            <summary>
+            A helper method to raise the PreviewTrayToolTipOpen event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayToolTipCloseEvent">
+            <summary>
+            Bubbled event that occurs when a custom tooltip is being closed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayToolTipClose">
+            <summary>
+            Bubbled event that occurs when a custom tooltip is being closed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayToolTipClose">
+            <summary>
+            A helper method to raise the TrayToolTipClose event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PreviewTrayToolTipCloseEvent">
+            <summary>
+            Tunneled event that occurs when a custom tooltip is being closed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.PreviewTrayToolTipClose">
+            <summary>
+            Tunneled event that occurs when a custom tooltip is being closed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnPreviewTrayToolTipClose">
+            <summary>
+            A helper method to raise the PreviewTrayToolTipClose event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayBalloonTipShownEvent">
+            <summary>
+            Occurs when a balloon ToolTip is displayed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayBalloonTipShown">
+            <summary>
+            Occurs when a balloon ToolTip is displayed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayBalloonTipShown">
+            <summary>
+            A helper method to raise the TrayBalloonTipShown event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayBalloonTipClosedEvent">
+            <summary>
+            Occurs when a balloon ToolTip was closed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayBalloonTipClosed">
+            <summary>
+            Occurs when a balloon ToolTip was closed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayBalloonTipClosed">
+            <summary>
+            A helper method to raise the TrayBalloonTipClosed event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayBalloonTipClickedEvent">
+            <summary>
+            Occurs when the user clicks on a balloon ToolTip.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayBalloonTipClicked">
+            <summary>
+            Occurs when the user clicks on a balloon ToolTip.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayBalloonTipClicked">
+            <summary>
+            A helper method to raise the TrayBalloonTipClicked event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayContextMenuOpenEvent">
+            <summary>
+            Bubbled event that occurs when the context menu of the taskbar icon is being displayed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayContextMenuOpen">
+            <summary>
+            Bubbled event that occurs when the context menu of the taskbar icon is being displayed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayContextMenuOpen">
+            <summary>
+            A helper method to raise the TrayContextMenuOpen event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PreviewTrayContextMenuOpenEvent">
+            <summary>
+            Tunneled event that occurs when the context menu of the taskbar icon is being displayed.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.PreviewTrayContextMenuOpen">
+            <summary>
+            Tunneled event that occurs when the context menu of the taskbar icon is being displayed.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnPreviewTrayContextMenuOpen">
+            <summary>
+            A helper method to raise the PreviewTrayContextMenuOpen event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayLeftMouseDownEvent">
+            <summary>
+            Occurs when the user presses the left mouse button.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayLeftMouseDown">
+            <summary>
+            Occurs when the user presses the left mouse button.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayLeftMouseDown">
+            <summary>
+            A helper method to raise the TrayLeftMouseDown event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayRightMouseDownEvent">
+            <summary>
+            Occurs when the presses the right mouse button.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayRightMouseDown">
+            <summary>
+            Occurs when the presses the right mouse button.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayRightMouseDown">
+            <summary>
+            A helper method to raise the TrayRightMouseDown event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayMiddleMouseDownEvent">
+            <summary>
+            Occurs when the user presses the middle mouse button.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayMiddleMouseDown">
+            <summary>
+            Occurs when the user presses the middle mouse button.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayMiddleMouseDown">
+            <summary>
+            A helper method to raise the TrayMiddleMouseDown event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayLeftMouseUpEvent">
+            <summary>
+            Occurs when the user releases the left mouse button.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayLeftMouseUp">
+            <summary>
+            Occurs when the user releases the left mouse button.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayLeftMouseUp">
+            <summary>
+            A helper method to raise the TrayLeftMouseUp event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayRightMouseUpEvent">
+            <summary>
+            Occurs when the user releases the right mouse button.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayRightMouseUp">
+            <summary>
+            Occurs when the user releases the right mouse button.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayRightMouseUp">
+            <summary>
+            A helper method to raise the TrayRightMouseUp event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayMiddleMouseUpEvent">
+            <summary>
+            Occurs when the user releases the middle mouse button.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayMiddleMouseUp">
+            <summary>
+            Occurs when the user releases the middle mouse button.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayMiddleMouseUp">
+            <summary>
+            A helper method to raise the TrayMiddleMouseUp event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayMouseDoubleClickEvent">
+            <summary>
+            Occurs when the user double-clicks the taskbar icon.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayMouseDoubleClick">
+            <summary>
+            Occurs when the user double-clicks the taskbar icon.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayMouseDoubleClick">
+            <summary>
+            A helper method to raise the TrayMouseDoubleClick event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.TrayMouseMoveEvent">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="E:H.NotifyIcon.TaskbarIcon.TrayMouseMove">
+            <summary>
+            Occurs when the user moves the mouse over the taskbar icon.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.OnTrayMouseMove">
+            <summary>
+            A helper method to raise the TrayMouseMove event.
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.BalloonShowingEvent">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.AddBalloonShowingHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.RemoveBalloonShowingHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.BalloonClosingEvent">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.AddBalloonClosingHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.RemoveBalloonClosingHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.PopupOpenedEvent">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.AddPopupOpenedHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.RemovePopupOpenedHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.ToolTipOpenedEvent">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.AddToolTipOpenedHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.RemoveToolTipOpenedHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.TaskbarIcon.ToolTipCloseEvent">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.AddToolTipCloseHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.TaskbarIcon.RemoveToolTipCloseHandler(System.Windows.DependencyObject,System.Windows.RoutedEventHandler)">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:H.NotifyIcon.GeneratedIcon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.Category">
+            <summary>
+            Category name that is set on designer properties.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.GeneratedIcon.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.TextProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.Text"/> dependency property.<br/>
+            Default value: ""
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.Text">
+            <summary>
+            Defines generated icon text.<br/>
+            Default value: ""
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.MarginProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.Margin"/> dependency property.<br/>
+            Default value: default(Thickness)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.Margin">
+            <summary>
+            Defines generated icon margin.<br/>
+            Default value: default(Thickness)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.BackgroundTypeProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.BackgroundType"/> dependency property.<br/>
+            Default value: default(BackgroundType)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.BackgroundType">
+            <summary>
+            Defines generated icon background type.<br/>
+            Default value: default(BackgroundType)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.TextMarginProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.TextMargin"/> dependency property.<br/>
+            Default value: default(Thickness)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.TextMargin">
+            <summary>
+            Defines generated icon text margin.<br/>
+            Default value: default(Thickness)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.CornerRadiusProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.CornerRadius"/> dependency property.<br/>
+            Default value: default(CornerRadius)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.CornerRadius">
+            <summary>
+            Defines generated icon corner radius.<br/>
+            Default value: default(CornerRadius)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.ForegroundProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.Foreground"/> dependency property.<br/>
+            Default value: Black
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.Foreground">
+            <summary>
+            Defines generated icon foreground.<br/>
+            Default value: Black
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.BackgroundProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.Background"/> dependency property.<br/>
+            Default value: default(Brush)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.Background">
+            <summary>
+            Defines generated icon background.<br/>
+            Default value: default(Brush)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.FontFamilyProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.FontFamily"/> dependency property.<br/>
+            Default value: IconFontFamily
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.FontFamily">
+            <summary>
+            Defines generated icon font family.<br/>
+            Default value: IconFontFamily
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.FontStyleProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.FontStyle"/> dependency property.<br/>
+            Default value: IconFontStyle
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.FontStyle">
+            <summary>
+            Defines generated icon font style.<br/>
+            Default value: IconFontStyle
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.FontWeightProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.FontWeight"/> dependency property.<br/>
+            Default value: IconFontWeight
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.FontWeight">
+            <summary>
+            Defines generated icon font weight.<br/>
+            Default value: IconFontWeight
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.FontStretchProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.FontStretch"/> dependency property.<br/>
+            Default value: Normal
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.FontStretch">
+            <summary>
+            Defines generated icon font stretch.<br/>
+            Default value: Normal
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.FontSizeProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.FontSize"/> dependency property.<br/>
+            Default value: IconFontSize
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.FontSize">
+            <summary>
+            Defines generated icon font size.<br/>
+            Default value: IconFontSize
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.SizeProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.Size"/> dependency property.<br/>
+            Default value: 128
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.Size">
+            <summary>
+            Defines generated icon size.<br/>
+            Default value: 128
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.BorderThicknessProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.BorderThickness"/> dependency property.<br/>
+            Default value: default(float)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.BorderThickness">
+            <summary>
+            Defines generated icon border thickness.<br/>
+            Default value: default(float)
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.BorderBrushProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.BorderBrush"/> dependency property.<br/>
+            Default value: Black
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.BorderBrush">
+            <summary>
+            Defines generated icon border brush.<br/>
+            Default value: Black
+            </summary>
+        </member>
+        <member name="F:H.NotifyIcon.GeneratedIcon.IconProperty">
+            <summary>
+            Identifies the <see cref="P:H.NotifyIcon.GeneratedIcon.Icon"/> dependency property.<br/>
+            Default value: default(Icon)
+            </summary>
+        </member>
+        <member name="P:H.NotifyIcon.GeneratedIcon.Icon">
+            <summary>
+            Defines generated icon. Use this for dynamically generated System.Drawing.Icons<br/>
+            Default value: default(Icon)
+            </summary>
+        </member>
+        <member name="T:H.NotifyIcon.WindowExtensions">
+            <summary>
+            Provides the most useful extensions to Window in the context of using TrayIcon.
+            </summary>
+        </member>
+        <member name="M:H.NotifyIcon.WindowExtensions.Hide(System.Windows.Window,System.Boolean)">
+            <summary>
+            Hides the window and optionally enables the Efficiency Mode for the current process.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:H.NotifyIcon.WindowExtensions.Show(System.Windows.Window,System.Boolean)">
+            <summary>
+            Shows the window and optionally disables the Efficiency Mode for the current process.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

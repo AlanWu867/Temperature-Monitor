@@ -1,0 +1,54 @@
+﻿<Page x:Class="WpfApp1.Page2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="444" d:DesignWidth="684"
+      Title="Page2">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Ellipse Margin="47,68,442,181" RenderTransformOrigin="0.569,0.77">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="圖片1.png"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Label Content="867" HorizontalAlignment="Left" Margin="99,268,0,0" VerticalAlignment="Top" Cursor="None" FontSize="48" FontFamily="Kristen ITC" FontWeight="Bold" Height="64" Width="88"/>
+        <Line X1="280" Y1="70" X2="280" Y2="350" Stroke="Gray" StrokeThickness="1"/>
+        <Border x:Name="border" Padding="0" BorderBrush="Black" BorderThickness="3"  Width="151" Height="85" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="20" Margin="408,69,125,290">
+            <Image  Source="圖片2.jpg" MouseDown="open__youtube" Stretch="UniformToFill">
+                <Image.Clip>
+                    <RectangleGeometry 
+					RadiusX="{Binding ElementName=border,Path=CornerRadius.TopLeft}" 
+					RadiusY="{Binding ElementName=border,Path=CornerRadius.TopLeft}" 
+					Rect="-2,-2,150,83" />
+                </Image.Clip>
+            </Image>
+        </Border>
+        <Border x:Name="border_Copy" Padding="0" BorderBrush="Black" BorderThickness="3"  Width="151" Height="85" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="20" Margin="408,171,125,188">
+            <Image  Source="圖片3.png" MouseDown="open__github" Stretch="Fill">
+                <Image.Clip>
+                    <RectangleGeometry 
+                        RadiusX="{Binding CornerRadius.TopLeft, ElementName=border}" 
+                        RadiusY="{Binding CornerRadius.TopLeft, ElementName=border}" 
+                        Rect="-2,-2,150,83" />
+                </Image.Clip>
+            </Image>
+        </Border>
+        <Border x:Name="border_Copy2" Padding="0" BorderBrush="Black" BorderThickness="3"  Width="151" Height="85" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="20" Margin="408,278,125,81">
+            <Image  Source="圖片4.png" MouseDown="open__paypal" Stretch="Fill">
+                <Image.Clip>
+                    <RectangleGeometry 
+                        RadiusX="{Binding CornerRadius.TopLeft, ElementName=border}" 
+                        RadiusY="{Binding CornerRadius.TopLeft, ElementName=border}" 
+                        Rect="-2,-2,150,83" />
+                </Image.Clip>
+            </Image>
+        </Border>
+
+    </Grid>
+</Page>
