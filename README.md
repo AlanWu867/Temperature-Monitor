@@ -1,4 +1,4 @@
-# C# temperature-gadget
+# C# Temperature Monitoring Widget
 [![star](https://img.shields.io/github/stars/AlanWu867/temperature-gadget)](https://github.com/login?return_to=%2FAlanWu867%2Ftemperature-gadget)
 ![C#](https://img.shields.io/badge/C%23-XAML-green)
 ## Introduction
