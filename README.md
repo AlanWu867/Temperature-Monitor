@@ -3,6 +3,9 @@
 ![C#](https://img.shields.io/badge/C%23-XAML-green)
 ## Introduction
 Imitate some functions of xbox game bar
+
+continuous update..
+
 ## Demo
 ![temperature-gadget](https://github.com/AlanWu867/temperature-gadget/blob/main/img/%E5%AA%92%E9%AB%942.gif)
 ## 環形進度條
